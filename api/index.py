@@ -1,5 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import json
+# Now you can import your logic
+from monitor import RSIMonitor
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -8,12 +10,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         
-        response = {
-            "status": "LIVE",
-            "service": "RSI Monitor API",
-            "message": "Deployed on Vercel - Working!",
-            "endpoints": ["/", "/api/rsi", "/health"]
-        }
+        monitor = RSIMonitor()
+        data = monitor.get_latest() # your real function
         
-        self.wfile.write(json.dumps(response).encode())
-        return
+        self.wfile.write(json.dumps(data).encode())
