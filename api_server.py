@@ -17,6 +17,7 @@ app = FastAPI(title="RSI Monitor API", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    app = FastAPI()
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
