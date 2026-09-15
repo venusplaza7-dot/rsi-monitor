@@ -1,24 +1,20 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="RSI Monitor API", version="1.0.0")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = FastAPI()
 
 @app.get("/")
-def home():
-    return {"status": "LIVE", "service": "RSI Monitor API", "version": "1.0.0"}
+def root():
+    return {
+        "status": "LIVE",
+        "service": "RSI Monitor API",
+        "version": "1.0.0",
+        "docs": "/docs"
+    }
+
+@app.get("/api")
+def api_root():
+    return {"live": True, "message": "RSI Monitor API working on Vercel!"}
 
 @app.get("/health")
 def health():
     return {"ok": True}
-
-# Keep your old logic below this line if you want
-# from monitor import RSIMonitor
-# from detector import RSIDetector
