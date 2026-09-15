@@ -1,19 +1,7 @@
-app = "rsi-monitor-ron-kahn-2026"
-primary_region = "sin"
-
-[build]
-  dockerfile = "Dockerfile"
-
-[http_service]
-  internal_port = 8000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ["app"]
-
-[[vm]]
-  cpu_kind = "shared"
-  cpus = 1
-  memory_mb = 512
-
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt.
+RUN pip install --no-cache-dir -r requirements.txt
+COPY..
+EXPOSE 7860
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "7860"]
